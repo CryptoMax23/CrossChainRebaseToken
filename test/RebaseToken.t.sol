@@ -28,7 +28,7 @@ contract RebaseTokenTest is Test {
     }
 
     function testDepositLinear(uint256 amount) public {
-        uint256 amount = bound(amount, 1e5, type(uint96).max);
+        amount = bound(amount, 1e5, type(uint96).max);
         // 1. Deposit
         vm.startPrank(user);
         vm.deal(user, amount);
@@ -134,7 +134,7 @@ contract RebaseTokenTest is Test {
     function testCannotCallMintAndBurn() public {
         vm.prank(user);
         vm.expectPartialRevert(IAccessControl.AccessControlUnauthorizedAccount.selector);
-        rebaseToken.mint(user, 100);
+        rebaseToken.mint(user, 100, rebaseToken.getInterestRate());
         vm.expectPartialRevert(IAccessControl.AccessControlUnauthorizedAccount.selector);
         rebaseToken.burn(user, 100);
     }
